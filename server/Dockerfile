@@ -16,4 +16,6 @@ COPY . .
 
 EXPOSE 80
 
+RUN npm install -g nodemon
+
 CMD [ "npm", "start"]
