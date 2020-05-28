@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Route, Redirect, withRouter } from "react-router-dom";
 import { isAuthenticated } from "../auth";
-import Home from "../routes/home/";
-import Login from "../routes/login/";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
 import { PropTypes } from "prop-types";
 
-const App = props => {
+const Routes = props => {
   const { location, match } = props;
   const [logged, setLogged] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -47,17 +47,15 @@ const App = props => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <Route path={`${match.url}app/home`} component={Home} />
-        <Route path={`${match.url}login`} component={Login} />
-      </header>
+      <Route path={`${match.url}app/home`} component={Home} />
+      <Route path={`${match.url}login`} component={Login} />
     </div>
   );
 };
 
-App.propTypes = {
+Routes.propTypes = {
   location: PropTypes.object,
   match: PropTypes.object
 };
 
-export default withRouter(App);
+export default withRouter(Routes);

@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { AppContainer } from "react-hot-loader";
-import Root from "./components/Root";
+import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./styles/index.css";
 
@@ -9,14 +9,14 @@ const root = document.getElementById("root");
 
 render(
   <AppContainer>
-    <Root />
+    <App />
   </AppContainer>,
   root
 );
 
 if (module.hot) {
-  module.hot.accept("./components/Root", () => {
-    const NewRoot = require("./components/Root").default;
+  module.hot.accept("./App", () => {
+    const NewRoot = require("./App").default;
     render(
       <AppContainer>
         <NewRoot />

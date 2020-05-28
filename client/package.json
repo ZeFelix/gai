@@ -22,10 +22,13 @@
     ]
   },
   "dependencies": {
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "leaflet": "^1.6.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-leaflet": "^2.7.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "customize-cra": "^0.8.0",
