@@ -7,6 +7,8 @@ function Header() {
   return (
     <S.Wrapper>
       <S.Image src={logo} alt="" />
+      <span>farmName</span>
+      <span>farmAddress</span>
       <S.Login>Login</S.Login>
     </S.Wrapper>
   );

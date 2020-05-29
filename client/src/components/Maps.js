@@ -1,39 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer } from "react-leaflet";
 import { PropTypes } from "prop-types";
 
-function Maps({ handleClick }) {
+function Maps({ GeojsonLayer, data, clickToFeature }) {
   const [state, setState] = useState({});
 
   useEffect(() => {
+    const coordinates = data.features[0].geometry.coordinates[0];
     setState({
-      lat: 51.505,
-      lng: -0.09,
+      lat: coordinates[0][1],
+      lng: coordinates[0][0],
       zoom: 13
     });
-  }, []);
+  }, [data]);
 
   return (
-    <Map
-      center={[state.lat, state.lng]}
-      zoom={state.zoom}
-      onclick={handleClick}
-    >
+    <Map center={[state.lat, state.lng]} zoom={state.zoom}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[state.lat, state.lng]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      <GeojsonLayer data={data} clickToFeature={clickToFeature} />
     </Map>
   );
 }
 
 Maps.propTypes = {
-  handleClick: PropTypes.func.isRequired
+  GeojsonLayer: PropTypes.func.isRequired,
+  clickToFeature: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
 };
 
 export default Maps;

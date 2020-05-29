@@ -1,8 +1,9 @@
 import React from "react";
+import { PropTypes } from "prop-types";
 
 import * as S from "./styles";
 
-function FarmDescription() {
+function FarmDescription({ clickBuy, clickBid }) {
   return (
     <S.Content>
       <S.FarmItem>Farm: name</S.FarmItem>
@@ -13,11 +14,16 @@ function FarmDescription() {
       <S.FarmItem>Total: name</S.FarmItem>
       <S.FarmItem>Price: _____</S.FarmItem>
       <S.ContenBuy>
-        <button>Buy now</button>
-        <button>Bid</button>
+        <button onClick={clickBuy}>Buy now</button>
+        <button onClick={clickBid}>Bid</button>
       </S.ContenBuy>
     </S.Content>
   );
 }
+
+FarmDescription.propTypes = {
+  clickBuy: PropTypes.func.isRequired,
+  clickBid: PropTypes.func.isRequired
+};
 
 export default FarmDescription;

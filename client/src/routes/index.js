@@ -3,6 +3,7 @@ import { Route, Redirect, withRouter } from "react-router-dom";
 import { isAuthenticated } from "../auth";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Payment from "../pages/Payment";
 import { PropTypes } from "prop-types";
 
 const Routes = props => {
@@ -48,6 +49,7 @@ const Routes = props => {
   return (
     <div className="App">
       <Route path={`${match.url}app/home`} component={Home} />
+      <Route path={`${match.url}app/payment`} component={Payment} />
       <Route path={`${match.url}login`} component={Login} />
     </div>
   );
