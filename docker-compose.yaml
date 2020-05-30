@@ -32,3 +32,4 @@ services:
 networks:
   mongo-network:
     driver: bridge
+    

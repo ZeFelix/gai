@@ -15,11 +15,13 @@ COPY . .
 # If you are building your code for production
 #RUN npm ci --only=production
 
-RUN yarn build
+# RUN yarn build
 
-RUN rm  build/static/css/*.map
-RUN rm  build/static/js/*.map 
+# RUN rm  build/static/css/*.map
+# RUN rm  build/static/js/*.map 
 
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /usr/src/app/build/ /usr/share/nginx/html/
+# FROM nginx:alpine
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+# COPY --from=builder /usr/src/app/build/ /usr/share/nginx/html/
+
+CMD [ "yarn", "start"]

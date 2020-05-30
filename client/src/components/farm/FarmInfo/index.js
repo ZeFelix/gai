@@ -11,7 +11,6 @@ export function FarmInfo({ clickBuy, clickBid }) {
       <S.Search />
       <S.FarmContent>
         <FarmDescription clickBuy={clickBuy} clickBid={clickBid} />
-        <S.Select>Select</S.Select>
       </S.FarmContent>
     </S.Wrapper>
   );

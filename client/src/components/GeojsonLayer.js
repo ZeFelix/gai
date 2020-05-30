@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { PropTypes } from "prop-types";
 import { GeoJSON } from "react-leaflet";
+import _ from "lodash";
 
 // import { Container } from './styles';
 
 function GeojsonLayer({ data, clickToFeature }) {
-  function onEachFeature(feature, layer) {
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    if (_.isEmpty(mapRef) || _.isEmpty(data)) return;
+    mapRef.current.leafletElement.clearLayers().addData(data);
+  }, [mapRef, data]);
+
+  function onEachFeature(_, layer) {
     layer.on({
-      click: () => clickToFeature(feature)
+      click: () => clickToFeature()
     });
   }
 
-  return <GeoJSON data={data.features} onEachFeature={onEachFeature} />;
+  return (
+    <GeoJSON ref={mapRef} key={data.features} onEachFeature={onEachFeature} />
+  );
 }
 
 GeojsonLayer.propTypes = {

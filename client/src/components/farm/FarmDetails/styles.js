@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 
 export const GraphContent = styled.div`
   height: 50%;
+  margin-bottom: 50px;
 `;
 
 export const Details = styled.div`

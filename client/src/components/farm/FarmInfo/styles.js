@@ -7,5 +7,3 @@ export const Title = styled.div``;
 export const Search = styled.input``;
 
 export const FarmContent = styled.div``;
-
-export const Select = styled.div``;

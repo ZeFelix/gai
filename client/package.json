@@ -22,12 +22,19 @@
     ]
   },
   "dependencies": {
+    "date-fns": "^2.14.0",
+    "immer": "^6.0.9",
     "leaflet": "^1.6.0",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.7.0",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "react-select": "^3.1.0",
+    "react-vis": "^1.11.7",
+    "redux": "^4.0.5",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {

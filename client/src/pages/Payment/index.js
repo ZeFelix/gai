@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Layout from "../_layout";
 import Input from "../../components/shared/Input";
 
 import * as S from "./styles";
 
 function Payment() {
+  const [total, setTotal] = useState(0);
+  const { farmSelected } = useSelector(state => state.farm);
+
+  function handleInputChange(event) {
+    const value = parseFloat(event.currentTarget.value);
+    const { price } = farmSelected;
+    value ? setTotal(value * price) : setTotal(0);
+  }
+
   return (
     <Layout>
       <S.Wrapper>
@@ -12,14 +22,15 @@ function Payment() {
           <S.Offer>
             <S.Title>Offer bird</S.Title>
             <S.Item>
-              Price: <Input type="text" />
+              Price: {farmSelected.price}
               $/sac
             </S.Item>
             <S.Item>
-              Yield: <Input type="text" />
+              Yield:{" "}
+              <Input type="number" max={10} onChange={handleInputChange} />
               sac
             </S.Item>
-            <S.Total>Total: XXXX $</S.Total>
+            <S.Total>Total: {total} $</S.Total>
           </S.Offer>
 
           <S.PayWith>
