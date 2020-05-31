@@ -39,6 +39,20 @@ app.get("/", (req, res) => {
 	res.status(200).send("Gaivota Test");
 });
 
+app.get("/farms", async (req, res) => {
+	const db = mongo.getDb();
+	const farms = await db.collection("farms").find({}).toArray();
+	res.status(200).send(farms);
+});
+
+app.get("/farms/:id/geojson", async (req, res) => {
+	const { id } = req.params;
+	const db = mongo.getDb();
+	const farm = await db.collection("farms").findOne({ "farm_id": id });
+	const geojson = await db.collection("geofarms").findOne({ "farm": farm._id });
+	res.status(200).send(geojson);
+});
+
 app.listen(PORT !== "undefined" ? PORT : 5000, () => {
 	console.warn("App is running at http://localhost:" + PORT);
 });

@@ -6,11 +6,9 @@ import Layout from "../_layout";
 import { FarmInfo, FarmDetails } from "../../components/farm";
 import GeojsonLayer from "../../components/GeojsonLayer";
 
-import { initialFarm, farmChange } from "../../store/modules/farm/actions";
-import { initialGeojson } from "../../store/modules/geojson/action";
+import { getFarms } from "../../service/farms";
 
-import geoJsonData from "../../dataTemp/geo.json";
-import farm from "../../dataTemp/fams.json";
+import { initialFarm, farmChange } from "../../store/modules/farm/actions";
 
 import * as S from "./styles";
 
@@ -21,9 +19,14 @@ const Home = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initialFarm(farm));
-    dispatch(farmChange(farm[0]));
-    dispatch(initialGeojson(geoJsonData));
+    getFarms()
+      .then(response => {
+        dispatch(initialFarm(response));
+        dispatch(farmChange(response[0]));
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }, []);
 
   function handleClickFeature() {

@@ -1,4 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
+const ObjectId = require("mongodb").ObjectID;
 const url = "mongodb://mongo:27017";
 const client = new MongoClient(url, { useUnifiedTopology: true });
 let _db;
@@ -21,5 +22,9 @@ module.exports = {
 
 	getDb: () => {
 		return _db;
+	},
+
+	getObjectId: () => {
+		return ObjectId;
 	}
 };

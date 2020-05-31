@@ -5,22 +5,19 @@ import { PropTypes } from "prop-types";
 import _ from "lodash";
 
 function Maps({ GeojsonLayer, clickToFeature }) {
-  const { data } = useSelector(state => state.geojson);
+  const { data: geojson } = useSelector(state => state.geojson);
   const { farmSelected } = useSelector(state => state.farm);
   const [state, setState] = useState({});
-  const [geojsonSelected, setGeojsonSelected] = useState({});
 
   useEffect(() => {
-    if (_.isEmpty(farmSelected) || _.isEmpty(data)) return;
-
-    setGeojsonSelected(data[farmSelected.farm_id]);
+    if (_.isEmpty(farmSelected)) return;
 
     setState({
       lat: farmSelected.latitude,
       lng: farmSelected.longitude,
       zoom: 14
     });
-  }, [farmSelected, data]);
+  }, [farmSelected]);
 
   return (
     <>
@@ -29,7 +26,7 @@ function Maps({ GeojsonLayer, clickToFeature }) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
         />
-        <GeojsonLayer data={geojsonSelected} clickToFeature={clickToFeature} />
+        <GeojsonLayer data={geojson} clickToFeature={clickToFeature} />
       </Map>
       )
     </>

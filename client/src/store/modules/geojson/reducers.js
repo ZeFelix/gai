@@ -3,8 +3,7 @@ import produce from "immer";
 import actionType from "./actionsType";
 
 const initialState = {
-  data: [],
-  geoSelected: {}
+  data: {}
 };
 
 export default function schedule(state = initialState, action) {

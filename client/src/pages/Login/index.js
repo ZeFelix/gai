@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { authenticate } from "../../auth";
+import { authenticate } from "../../service/auth";
 import { PropTypes } from "prop-types";
 
 const Login = props => {

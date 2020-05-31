@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Redirect, withRouter } from "react-router-dom";
-import { isAuthenticated } from "../auth";
+import { isAuthenticated } from "../service/auth";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Payment from "../pages/Payment";

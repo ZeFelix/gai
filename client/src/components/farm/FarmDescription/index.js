@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import Select from "react-select";
 import { PropTypes } from "prop-types";
 
+import { getGeojson } from "../../../service/geojson";
+
 import { farmChange } from "../../../store/modules/farm/actions";
+import { initialGeojson } from "../../../store/modules/geojson/action";
 
 import * as S from "./styles";
 
@@ -17,7 +20,15 @@ function FarmDescription({ clickBuy, clickBid }) {
   }, [setOption, farms]);
 
   function handleChange(params) {
-    dispatch(farmChange(params.value));
+    const { value } = params;
+    getGeojson(value)
+      .then(response => {
+        dispatch(initialGeojson(response));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    dispatch(farmChange(value));
   }
 
   return (
