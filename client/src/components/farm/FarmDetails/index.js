@@ -4,13 +4,12 @@ import { PropTypes } from "prop-types";
 import "react-vis/dist/style.css";
 import {
   XYPlot,
-  LineSeries,
+  LineMarkSeries,
   VerticalBarSeries,
   HorizontalGridLines,
   YAxis,
   XAxis
 } from "react-vis";
-import { parseISO, format } from "date-fns";
 import FarmDescription from "../FarmDescription";
 
 import { getPrecipitations } from "../../../service/precipitation";
@@ -24,19 +23,19 @@ export function FarmDetails({ clickBuy, clickBid }) {
   const { farmSelected } = useSelector(state => state.farm);
 
   function formatNdvi(farmNdvi, farmSelected) {
-    return farmNdvi.map(f => {
+    return Object.keys(farmNdvi).map(month => {
       return {
-        x: format(parseISO(f.date), "MMM"),
-        y: parseFloat(f[`ndvi_${farmSelected.farm_id}`].replace(",", "."))
+        x: month,
+        y: farmNdvi[month][`ndvi_${farmSelected.farm_id}`]
       };
     });
   }
 
-  function formatPrecipitation(farmsPrecipitation, farmSelected) {
-    return farmsPrecipitation.map(f => {
+  function mountPrecipitation(farmsPrecipitation, farmSelected) {
+    return Object.keys(farmsPrecipitation).map(month => {
       return {
-        x: format(parseISO(f.date), "MMM"),
-        y: parseInt(f[`precipitation_${farmSelected.farm_id}`])
+        x: month,
+        y: farmsPrecipitation[month][`precipitation_${farmSelected.farm_id}`]
       };
     });
   }
@@ -44,7 +43,7 @@ export function FarmDetails({ clickBuy, clickBid }) {
   useEffect(() => {
     getPrecipitations()
       .then(response => {
-        setDataPrecipitation(formatPrecipitation(response, farmSelected));
+        setDataPrecipitation(mountPrecipitation(response, farmSelected));
       })
       .catch(err => {
         console.log(err);
@@ -57,22 +56,22 @@ export function FarmDetails({ clickBuy, clickBid }) {
       .catch(err => {
         console.log(err);
       });
-  }, [setDataNdvi, setDataPrecipitation, farmSelected]);
+  }, [setDataPrecipitation, farmSelected]);
 
   return (
     <S.Wrapper>
       <S.GraphContent>
-        <XYPlot height={300} width={400} xType="ordinal">
-          <XAxis />
+        <XYPlot height={300} width={500} xType="ordinal">
+          <XAxis tickLabelAngle={-45} />
           <HorizontalGridLines />
           <YAxis orientation="right" title="Precipitation" />
           <VerticalBarSeries
             data={dataPrecitpitation}
             color="blue"
-            yDomain={[1, 50]}
+            yDomain={[0, 600]}
           />
           <YAxis orientation="left" title="NDVI" />
-          <LineSeries data={dataNdvi} color="black" yDomain={[0, 1]} />
+          <LineMarkSeries data={dataNdvi} color="black" yDomain={[0, 6]} />
         </XYPlot>
       </S.GraphContent>
       <S.Details>
