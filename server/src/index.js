@@ -35,11 +35,11 @@ app.get("/auth", (req, res) => {
 	res.status(200).send(ok);
 });
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
 	res.status(200).send("Gaivota Test");
 });
 
-app.get("/farms", async (req, res) => {
+app.get("/farms", async (_, res) => {
 	const db = mongo.getDb();
 	const farms = await db.collection("farms").find({}).toArray();
 	res.status(200).send(farms);
@@ -51,6 +51,18 @@ app.get("/farms/:id/geojson", async (req, res) => {
 	const farm = await db.collection("farms").findOne({ "farm_id": id });
 	const geojson = await db.collection("geofarms").findOne({ "farm": farm._id });
 	res.status(200).send(geojson);
+});
+
+app.get("/precipitations", async (_, res) => {
+	const db = mongo.getDb();
+	const precipitations = await db.collection("precipitation").find({}).toArray();
+	res.status(200).send(precipitations);
+});
+
+app.get("/ndvis", async (_, res) => {
+	const db = mongo.getDb();
+	const nvdis = await db.collection("ndvi").find({}).toArray();
+	res.status(200).send(nvdis);
 });
 
 app.listen(PORT !== "undefined" ? PORT : 5000, () => {

@@ -10,7 +10,11 @@ export function FarmInfo({ clickBuy, clickBid }) {
       <S.Title>Farm</S.Title>
       <S.Search />
       <S.FarmContent>
-        <FarmDescription clickBuy={clickBuy} clickBid={clickBid} />
+        <FarmDescription
+          clickBuy={clickBuy}
+          clickBid={clickBid}
+          showSelected={true}
+        />
       </S.FarmContent>
     </S.Wrapper>
   );

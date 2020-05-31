@@ -13,8 +13,8 @@ import {
 import { parseISO, format } from "date-fns";
 import FarmDescription from "../FarmDescription";
 
-import farmNdvi from "../../../dataTemp/farms_ndvi.json";
-import farmsPrecipitation from "../../../dataTemp/farms_precipitation.json";
+import { getPrecipitations } from "../../../service/precipitation";
+import { getNvdis } from "../../../service/ndvi";
 
 import * as S from "./styles";
 
@@ -42,20 +42,27 @@ export function FarmDetails({ clickBuy, clickBid }) {
   }
 
   useEffect(() => {
-    setDataNdvi(formatNdvi(farmNdvi, farmSelected));
-    setDataPrecipitation(formatPrecipitation(farmsPrecipitation, farmSelected));
-  }, [
-    setDataNdvi,
-    setDataPrecipitation,
-    farmNdvi,
-    farmsPrecipitation,
-    farmSelected
-  ]);
+    getPrecipitations()
+      .then(response => {
+        setDataPrecipitation(formatPrecipitation(response, farmSelected));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    getNvdis()
+      .then(response => {
+        setDataNdvi(formatNdvi(response, farmSelected));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [setDataNdvi, setDataPrecipitation, farmSelected]);
 
   return (
     <S.Wrapper>
       <S.GraphContent>
-        <XYPlot height={300} width={600} xType="ordinal">
+        <XYPlot height={300} width={400} xType="ordinal">
           <XAxis />
           <HorizontalGridLines />
           <YAxis orientation="right" title="Precipitation" />
@@ -69,7 +76,11 @@ export function FarmDetails({ clickBuy, clickBid }) {
         </XYPlot>
       </S.GraphContent>
       <S.Details>
-        <FarmDescription clickBuy={clickBuy} clickBid={clickBid} />
+        <FarmDescription
+          clickBuy={clickBuy}
+          clickBid={clickBid}
+          showSelected={false}
+        />
       </S.Details>
     </S.Wrapper>
   );
