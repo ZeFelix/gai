@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "date-fns": "^2.14.0",
-    "immer": "^6.0.9",
+    "immer": "^9.0.6",
     "leaflet": "^1.6.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
